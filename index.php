@@ -22,7 +22,7 @@ if(isset($_GET['position'])){
 <!--[if (gt IE 9)|!(IE)]><!--> <html> <!--<![endif]-->
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>Backpacking Light Banner-Ad Generator - 1.1</title>
+	<title>BPL Banner-Ad Generator - 1.1</title>
 	<link href="http://webfonts.fontslive.com/css/aa671d7d-666b-4374-8303-4ded15c05d90.css" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.8.7.custom.css" type="text/css" media="screen" charset="utf-8">
 	<link rel="stylesheet" href="css/ads.css" type="text/css" media="screen" charset="utf-8">	

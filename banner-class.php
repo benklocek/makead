@@ -1,8 +1,7 @@
 <?php
-//error_reporting('e_warning');
 /**
- * For building the BPL Banners
- */
+* For building the BPL Banners
+*/
 class BPLBanner {
 
 	var $file; //uploaded temp file
@@ -21,22 +20,22 @@ class BPLBanner {
 	var $sub = false;
 	
 	function __construct(
-						$file = './images/banner-1.jpg',
-						$position = 'banner-top',
-						$bgcolor = 'bg-orange20',
-						$tag = 'places',
-						$txtcolor = 'txt-white',
-						$ctacolor = 'cta-white',
-						$ctaweight = 'normal',
-						$titlealign = 'aleft',
-						$titlesize = 's3',
-						$textalign = 'aleft',
-						$textsize = 's3',
-						$link = '#',
-						$title = 'The Wind in the Willows',
-						$subtext = 'It is spring time, the weather is fine, and good-natured Mole heads up to take in the air.',
-						$attribution = 'By Kenneth Grahame',
-						$cta = 'Read Now') {
+	$file = './images/banner-1.jpg',
+	$position = 'banner-top',
+	$bgcolor = 'bg-orange20',
+	$tag = 'places',
+	$txtcolor = 'txt-white',
+	$ctacolor = 'cta-white',
+	$ctaweight = 'normal',
+	$titlealign = 'aleft',
+	$titlesize = 's3',
+	$textalign = 'aleft',
+	$textsize = 's3',
+	$link = '#',
+	$title = 'The Wind in the Willows',
+	$subtext = 'It is spring time, the weather is fine, and good-natured Mole heads up to take in the air.',
+	$attribution = 'By Kenneth Grahame',
+	$cta = 'Read Now') {
 							
 		$this->file = $file;
 		$this->position = $position;
@@ -93,51 +92,44 @@ class BPLBanner {
 
 	function DisplayIGCode(){
 
-$igcode = "<div class=\"largefeature\">
-  <a href=\"[% tag('advertising_link', {href =>'$this->link'})%]\">
-    <img src=\"[% tag('ig_cache_image_url') %]/backpackinglight/ads/FILENAME-FROM-STEP-6.EXT\" alt=\"$this->title\" height=\"350\" width=\"604\" border=\"0\">
-  </a>
-</div>";
-	echo stripslashes(trim($igcode));
+		$igcode = "<div class=\"largefeature\">
+			<a href=\"[% tag('advertising_link', {href =>'$this->link'})%]\">
+				<img src=\"[% tag('ig_cache_image_url') %]/backpackinglight/ads/FILENAME-FROM-STEP-6.EXT\" alt=\"$this->title\" height=\"350\" width=\"604\" border=\"0\">
+			</a>
+		</div>";
+		echo stripslashes(trim($igcode));
 	}
 	
-function ReturnCode(){
-	$tagged = ($this->tag != 'none') ? "\n   <div class=\"banner-tag\"><span class=\"png\">$this->tag</span></div>" : '';
-	$attributed = ($this->attribution != '') ? "<i>$this->attribution</i><br>" : '';
+	function ReturnCode(){
+		$tagged = ($this->tag != 'none') ? "\n   <div class=\"banner-tag\"><span class=\"png\">$this->tag</span></div>" : '';
+		$attributed = ($this->attribution != '') ? "<i>$this->attribution</i><br>" : '';
 
-return "<div class=\"largefeature $this->position $this->bgcolor $this->txtcolor\">
-   <span class=\"banner-text $this->titlealign\">
-      <h3 class=\"$this->titlesize\">$this->title</h3>
-      <p class=\"$this->textalign $this->textsize\">$attributed
-         $this->subtext
-      </p>
- 		<a href=\"$this->link\" class=\"$this->ctacolor $this->ctaweight\">$this->cta &raquo;</a>
-   </span>$tagged
-   <a href=\"$this->link\" class=\"imglink\"><img src=\"$this->file\" height=\"350\" width=\"604\" alt=\"$this->title\" border=\"0\"/></a>
-</div>";
-}
+		return "<div class=\"largefeature $this->position $this->bgcolor $this->txtcolor\">
+			<span class=\"banner-text $this->titlealign\">
+				<h3 class=\"$this->titlesize\">$this->title</h3>
+				<p class=\"$this->textalign $this->textsize\">$attributed
+					$this->subtext
+				</p>
+				<a href=\"$this->link\" class=\"$this->ctacolor $this->ctaweight\">$this->cta &raquo;</a>
+			</span>$tagged
+			<a href=\"$this->link\" class=\"imglink\"><img src=\"$this->file\" height=\"350\" width=\"604\" alt=\"$this->title\" border=\"0\"/></a>
+		</div>";
+	}
 	
 	function DisplayInput($item){
 	   
-	   if ($item['type'] == 'text') {
+		if ($item['type'] == 'text') {
 			$format = ($item['type'] == 'text')?'<br/>':':';
 			return '<label for="'.$item['id'].'">'.$item['label'].'</label> '.$format.'<input type="'.$item['type'].'" name="'.$item['name'].'" value="'.stripslashes($item['value']).'" id="'.$item['id'].'"/>';
 		}	   
 		elseif ($item['type'] == 'textarea')
-	       return ' <label for="'.$item['id'].'">'.$item['label'].'</label><textarea id="'.$item['id'].'" name="'.$item['name'].'" >'.stripslashes($item['value']).'</textarea>';
+		return ' <label for="'.$item['id'].'">'.$item['label'].'</label><textarea id="'.$item['id'].'" name="'.$item['name'].'" >'.stripslashes($item['value']).'</textarea>';
 	   
 		elseif ($item['type'] == 'select'){
 			$selected = ($this->$item['name'] == $item['value']) ? 'selected' : '' ;
 			return ' <option value="'.$item['value'].'" '.$selected.'>'.$item['label'].'</option>';
 		}
 		
-/*
-		elseif ($item['type'] == 'checkbox'){
-			$checked = (isset($item['value'])) ? 'checked' : '' ;
-			return '<label for="'.$item['id'].'">'.$item['label'].'</label><input type="'.$item['type'].'" name="'.$item['name'].'" id="'.$item['id'].'" '.$checked.' value='.$item['value'].'""/>';
-		}
-/**/
-
 		else {
 			$checked = ($this->$item['name'] == $item['value']) ? 'checked' : '' ;
 			return '<input type="'.$item['type'].'" name="'.$item['name'].'" value="'.$item['value'].'" id="'.$item['id'].'" '.$checked.'/> <label for="'.$item['id'].'">'.$item['label'].'</label>';
@@ -145,25 +137,23 @@ return "<div class=\"largefeature $this->position $this->bgcolor $this->txtcolor
 	}
 	
 	function ProcessUpload(){
-		//var_dump($_POST);
 		//Сheck that we have a file
 		if((!empty($_FILES["upload"])) && ($_FILES['upload']['error'] == 0)) {
 			
-		  //Check if the file is JPEG image and it's size is less than 350Kb		
-		  $filename = basename($_FILES['upload']['name']);
-		  $ext = substr($filename, strrpos($filename, '.') + 1);
+			//Check if the file is JPEG image and it's size is less than 350Kb		
+			$filename = basename($_FILES['upload']['name']);
+			$ext = substr($filename, strrpos($filename, '.') + 1);
 		
-		  if (($ext == "jpg") && ($_FILES["upload"]["type"] == "image/jpeg") && 
-		    ($_FILES["upload"]["size"] < 350000)) {
+			if (($ext == "jpg") && ($_FILES["upload"]["type"] == "image/jpeg") && 
+			($_FILES["upload"]["size"] < 350000)) {
 			
-		    //Determine the path to which we want to save this file		
-		      $newname = dirname(__FILE__).'/temp/'.$filename;
+				//Determine the path to which we want to save this file		
+				$newname = dirname(__FILE__).'/temp/'.$filename;
 		
-		        //Attempt to move the uploaded file to it's new place
-		        if ((move_uploaded_file($_FILES['upload']['tmp_name'],$newname))) {
-						return $this->file = './temp/'.$filename;
-		           //echo "It's done! The file has been saved as: ".$newfilename;
-		        }
+				//Attempt to move the uploaded file to it's new place
+				if ((move_uploaded_file($_FILES['upload']['tmp_name'],$newname))) {
+					return $this->file = './temp/'.$filename;
+				}
 			}
 		} elseif (@$_POST['imglink'] != '') return $this->file = $_POST['imglink'];
 		elseif ($_POST['newfilename'] != '') return $this->file = $_POST['newfilename'];
